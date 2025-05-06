@@ -1,0 +1,98 @@
+[
+  {
+    "timestamp": "2025-04-26 21:59:31",
+    "currency": "USD",
+    "tt_sell": "85.55",
+    "tt_buy": "85.04",
+    "bills_sell": "85.59",
+    "bills_buy": "85"
+  },
+  {
+    "timestamp": "2025-04-27 11:20:22",
+    "currency": "USD",
+    "tt_sell": "85.55",
+    "tt_buy": "85.04",
+    "bills_sell": "85.59",
+    "bills_buy": "85"
+  },
+  {
+    "timestamp": "2025-04-28 10:17:19",
+    "currency": "USD",
+    "tt_sell": "85.55",
+    "tt_buy": "85.04",
+    "bills_sell": "85.59",
+    "bills_buy": "85"
+  },
+  {
+    "timestamp": "2025-04-29 10:14:35",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-04-30 10:17:00",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-01 10:17:58",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-02 10:16:22",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-03 10:15:54",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-04 10:15:33",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-05 10:16:41",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-06 10:16:52",
+    "currency": "USD",
+    "tt_sell": "85.47",
+    "tt_buy": "84.96",
+    "bills_sell": "85.51",
+    "bills_buy": "84.92"
+  },
+  {
+    "timestamp": "2025-05-06 19:58:56",
+    "currency": "USD",
+    "tt_sell": "84.61",
+    "tt_buy": "84.1",
+    "bills_sell": "84.65",
+    "bills_buy": "84.06"
+  }
+]
