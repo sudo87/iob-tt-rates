@@ -8,8 +8,75 @@ const csv = require('csv-parser');
 async function convertCSVToJSON() {
   const results = [];
   
+  // First, determine the repo root by checking for common files/directories
+  let repoRoot = process.cwd();
+  while (!fs.existsSync(path.join(repoRoot, 'data')) && 
+         !fs.existsSync(path.join(repoRoot, 'api')) && 
+         repoRoot !== path.parse(repoRoot).root) {
+    repoRoot = path.dirname(repoRoot);
+  }
+  
+  // Construct the path to the CSV file based on the repository structure
+  const csvPath = path.join(repoRoot, 'data', 'forex_rates.csv');
+  
+  console.log(`Current working directory: ${process.cwd()}`);
+  console.log(`Repository root detected as: ${repoRoot}`);
+  console.log(`Looking for CSV file at: ${csvPath}`);
+  
+  if (!fs.existsSync(csvPath)) {
+    // If not found, try a few other common locations as fallback
+    const fallbackPaths = [
+      path.resolve(__dirname, '../data/forex_rates.csv'),
+      path.resolve(process.cwd(), 'data/forex_rates.csv')
+    ];
+    
+    console.log('CSV not found at primary location. Trying fallbacks:');
+    fallbackPaths.forEach(p => console.log(` - ${p}`));
+    
+    const fallbackPath = fallbackPaths.find(p => fs.existsSync(p));
+    
+    if (!fallbackPath) {
+      console.error('Failed to find forex_rates.csv. Directory contents:');
+      try {
+        // List directories to help diagnose the issue
+        console.log('Root directory contents:');
+        console.log(fs.readdirSync(process.cwd()));
+        
+        if (fs.existsSync(path.join(process.cwd(), 'data'))) {
+          console.log('Data directory contents:');
+          console.log(fs.readdirSync(path.join(process.cwd(), 'data')));
+        }
+      } catch (err) {
+        console.error('Error listing directories:', err);
+      }
+      
+      throw new Error('Could not find forex_rates.csv in any of the expected locations');
+    }
+    
+    console.log(`Found CSV file at fallback location: ${fallbackPath}`);
+    return processCSVFile(fallbackPath);
+  }
+  
+  console.log(`Found CSV file at: ${csvPath}`);
+  return processCSVFile(csvPath);
+  
+  // Helper function to process the CSV file
+  function processCSVFile(filePath) {
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(csv())
+        .on('data', (data) => results.push(data))
+        .on('end', () => {
+          resolve(results);
+        })
+        .on('error', (error) => {
+          reject(error);
+        });
+    });
+  }
+  
   return new Promise((resolve, reject) => {
-    fs.createReadStream('../data/forex_rates.csv')
+    fs.createReadStream(csvPath)
       .pipe(csv())
       .on('data', (data) => results.push(data))
       .on('end', () => {
@@ -26,21 +93,47 @@ async function generateAPIEndpoints() {
   try {
     const forexData = await convertCSVToJSON();
     
-    // Ensure directory exists
-    if (!fs.existsSync('public/api')) {
-      fs.mkdirSync('public/api', { recursive: true });
+    // First, determine the repo root
+    let repoRoot = process.cwd();
+    while (!fs.existsSync(path.join(repoRoot, 'data')) && 
+           !fs.existsSync(path.join(repoRoot, 'api')) && 
+           repoRoot !== path.parse(repoRoot).root) {
+      repoRoot = path.dirname(repoRoot);
+    }
+    
+    // Use absolute paths with repository root for output directories
+    const publicDir = path.join(repoRoot, 'public');
+    const apiDir = path.join(publicDir, 'api');
+    const monthDir = path.join(apiDir, 'month');
+    
+    console.log(`Creating output directories:`);
+    console.log(` - Public dir: ${publicDir}`);
+    console.log(` - API dir: ${apiDir}`);
+    console.log(` - Month dir: ${monthDir}`);
+    
+    // Ensure directories exist
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    
+    if (!fs.existsSync(apiDir)) {
+      fs.mkdirSync(apiDir, { recursive: true });
+    }
+    
+    if (!fs.existsSync(monthDir)) {
+      fs.mkdirSync(monthDir, { recursive: true });
     }
     
     // 1. All data endpoint
     fs.writeFileSync(
-      'public/api/all.json', 
+      path.resolve(apiDir, 'all.json'), 
       JSON.stringify(forexData, null, 2)
     );
     
     // 2. Latest rates endpoint
     const latest = forexData.length > 0 ? forexData[forexData.length - 1] : {};
     fs.writeFileSync(
-      'public/api/latest.json', 
+      path.resolve(apiDir, 'latest.json'), 
       JSON.stringify(latest, null, 2)
     );
     
@@ -60,7 +153,7 @@ async function generateAPIEndpoints() {
     // Write each month's data to separate files
     Object.keys(byMonth).forEach(month => {
       fs.writeFileSync(
-        `public/api/month/${month}.json`,
+        path.resolve(monthDir, `${month}.json`),
         JSON.stringify(byMonth[month], null, 2)
       );
     });
@@ -177,7 +270,7 @@ function generateAPIDocumentation() {
   </html>
   `;
   
-  fs.writeFileSync('public/index.html', html);
+  fs.writeFileSync(path.resolve(process.cwd(), 'public/index.html'), html);
 }
 
 // Execute the function
