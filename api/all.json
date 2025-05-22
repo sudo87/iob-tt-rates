@@ -174,5 +174,13 @@
     "tt_buy": "85.36",
     "bills_sell": "85.92",
     "bills_buy": "85.32"
+  },
+  {
+    "timestamp": "2025-05-22 17:10:12",
+    "currency": "USD",
+    "tt_sell": "85.92",
+    "tt_buy": "85.4",
+    "bills_sell": "85.96",
+    "bills_buy": "85.36"
   }
 ]
