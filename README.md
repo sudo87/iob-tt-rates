@@ -4,7 +4,7 @@ This repository contains a daily scraper that fetches USD forex rates from the I
 
 ## How It Works
 
-1. A GitHub Actions workflow runs daily at 10:00 AM IST
+1. A GitHub Actions workflow runs on weekdays at 10:00 AM IST
 2. The script uses Selenium to open the IOB forex rates page in a headless browser
 3. It extracts the USD exchange rates from the page
 4. The data is appended to a CSV file with a timestamp
