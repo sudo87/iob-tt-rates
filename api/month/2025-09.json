@@ -46,5 +46,13 @@
     "tt_buy": "87.78",
     "bills_sell": "88.34",
     "bills_buy": "87.74"
+  },
+  {
+    "timestamp": "2025-09-10 17:11:46",
+    "currency": "USD",
+    "tt_sell": "88.3",
+    "tt_buy": "87.78",
+    "bills_sell": "88.34",
+    "bills_buy": "87.74"
   }
 ]
