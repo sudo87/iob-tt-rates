@@ -8,7 +8,7 @@ from datetime import datetime
 import pytz
 
 def scrape_iob_forex():
-    url = "https://www.iob.in/iob_forex-rates.aspx"
+    url = "https://www.iob.bank.in/iob_forex-rates.aspx"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
         "Accept-Encoding": "gzip, deflate, br"
