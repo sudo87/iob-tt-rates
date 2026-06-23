@@ -126,5 +126,13 @@
     "tt_buy": "94.26",
     "bills_sell": "94.88",
     "bills_buy": "94.93"
+  },
+  {
+    "timestamp": "2026-06-23 19:29:54",
+    "currency": "USD",
+    "tt_sell": "94.39",
+    "tt_buy": "94.34",
+    "bills_sell": "94.96",
+    "bills_buy": "95.01"
   }
 ]
